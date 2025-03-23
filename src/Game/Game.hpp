@@ -18,7 +18,8 @@ enum SCENE
     MENU,
     GAME,
     SCORE,
-    INFO
+    INFO,
+    HOW
 };
 
 class Game

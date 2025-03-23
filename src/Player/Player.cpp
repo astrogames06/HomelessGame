@@ -81,5 +81,5 @@ void Player::Update()
 void Player::Draw()
 {
     DrawTextureV(texture, position, WHITE);
-    DrawRectangleLines(position.x, position.y, texture.width, texture.height, GREEN);
+    //DrawRectangleLines(position.x, position.y, texture.width, texture.height, GREEN);
 }
