@@ -257,6 +257,7 @@ void Game::DrawUI()
         #if defined(PLATFORM_WEB)
 
             if (people_helped > high_score) {
+                SetHighScore(people_helped);
                 SaveHighScore(people_helped);
             }
 
