@@ -32,7 +32,8 @@ public:
     std::vector<Homeless> homeless_people;
 
     Camera2D camera;
-    float timer = 60.f;
+    float time_limit = 60.f;
+    float timer = time_limit;
     int people_helped = 0;
 
     void Init();

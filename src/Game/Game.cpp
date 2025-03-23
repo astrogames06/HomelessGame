@@ -1,5 +1,6 @@
 #include "Game.hpp"
 
+#include <iostream>
 #include <iomanip>
 #include <sstream>
 #include <raygui.h>
@@ -11,6 +12,30 @@
 #include "../assets/guy_0_png.h"
 #include "../assets/guy_1_png.h"
 #include "../assets/guy_2_png.h"
+
+#if defined(PLATFORM_WEB)
+    #include <emscripten/emscripten.h>
+
+    extern "C"
+    {
+        int high_score;
+        EMSCRIPTEN_KEEPALIVE
+        int GetHighScore()
+        {
+            return high_score;
+        }
+
+        EMSCRIPTEN_KEEPALIVE
+        void SetHighScore(int x)
+        {
+            high_score = x;
+        }
+    }
+
+    EM_JS(void, SaveHighScore, (int  x), {
+        localStorage.setItem("high_score", x);
+    });
+#endif
 
 Image map_img;
 
@@ -115,8 +140,7 @@ void Game::Update()
 
         guy_spawn_delay++;
         if (guy_spawn_delay >= GetFPS()*3) {
-            std::string file_path = "assets/guy_" + std::to_string(GetRandomValue(0, 2)) + ".png";
-            Texture2D tex = LoadTexture(file_path.c_str());
+            Texture2D tex = guys_tex[GetRandomValue(0,2)];
 
             Vector2 spawn_position;
             bool is_colliding;
@@ -145,7 +169,7 @@ void Game::Update()
                 }
             } while (is_colliding);
             
-            homeless_people.push_back(Homeless{guys_tex[GetRandomValue(0,2)], spawn_position});
+            homeless_people.push_back(Homeless{tex, spawn_position});
             guy_spawn_delay = 0;
         }
 
@@ -161,7 +185,7 @@ void Game::Update()
         for (int i = 0; i < homeless_people.size(); i++) {
             Homeless& h = homeless_people[i];
             
-            if (IsKeyPressed(KEY_E) && CheckCollisionCircleRec(h.pos, h.texture.height*1.5,
+            if (IsKeyPressed(KEY_E) && CheckCollisionCircleRec(h.pos, h.texture.width+h.texture.height,
                 {
                     (float)plr.position.x,
                     (float)plr.position.y,
@@ -179,21 +203,65 @@ void Game::Update()
 
 void Game::DrawUI()
 {
+    #if defined(PLATFORM_WEB)
+        std::cout << "SCORE: = " << GetHighScore() << '\n';
+    #endif
     if (scene == GAME)
     {
         std::ostringstream stream;
         stream << std::fixed << std::setprecision(2) << (std::round(timer * 100) / 100);
         std::string timer_str = "Timer: " + stream.str();
+        DrawRectangleRounded({20-5, 20, (float)MeasureText(timer_str.c_str(), 20)+10, 20}, 0.5f, 10.f, LIGHTGRAY);
         DrawText(timer_str.c_str(), 20, 20, 20, BLACK);
 
         std::string score_str = "Score: " + std::to_string(people_helped);
+        DrawRectangleRounded({200-5, 20, (float)MeasureText(score_str.c_str(), 20)+10, 20}, 0.5f, 10.f, LIGHTGRAY);
         DrawText(score_str.c_str(), 200, 20, 20, BLACK);
     }
     else if (scene == MENU)
     {
+        #if defined(PLATFORM_WEB)
+            std::string format_high_score = "High Score: " + std::to_string(GetHighScore());
+            float highscore_width = (float)MeasureText(format_high_score.c_str(), 20)+10;
+            DrawRectangleRounded({(WIDTH/2-highscore_width/2)-5, 50, highscore_width, 20}, 0.5f, 10.f, LIGHTGRAY);
+            DrawText(format_high_score.c_str(), WIDTH/2-highscore_width/2, 50, 20, BLACK);
+        #endif
+
         if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)HEIGHT/2-80/2, 150, 80}, "PLAY!"))
         {
             scene = GAME;
+        }
+    }
+    else if (scene == SCORE)
+    {
+        std::string format_score = "Score: " + std::to_string(people_helped);
+        float score_width = (float)MeasureText(format_score.c_str(), 20)+10;
+        DrawRectangleRounded({(WIDTH/2-score_width/2)-5, 20, score_width, 20}, 0.5f, 10.f, LIGHTGRAY);
+        DrawText(format_score.c_str(), WIDTH/2-score_width/2, 20, 20, BLACK);
+
+        
+        #if defined(PLATFORM_WEB)
+
+            if (people_helped > high_score) {
+                SaveHighScore(people_helped);
+            }
+
+            std::string format_high_score = "High Score: " + std::to_string(GetHighScore());
+            float highscore_width = (float)MeasureText(format_high_score.c_str(), 20)+10;
+            DrawRectangleRounded({(WIDTH/2-highscore_width/2)-5, 50, highscore_width, 20}, 0.5f, 10.f, LIGHTGRAY);
+            DrawText(format_high_score.c_str(), WIDTH/2-highscore_width/2, 50, 20, BLACK);
+        #endif
+
+        if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)100, 150, 80}, "PLAY AGAIN!"))
+        {
+            scene = GAME;
+            people_helped = 0;
+            timer = time_limit;
+            homeless_people.clear();
+        }
+        if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)200, 150, 80}, "MENU"))
+        {
+            scene = MENU;
         }
     }
 }

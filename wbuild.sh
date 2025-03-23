@@ -12,4 +12,4 @@ OUTPUT="build/web/index.html"
 FILES="src/main.cpp src/Game/Game.cpp src/Entity/Entity.cpp src/Player/Player.cpp"
 
 # Build command
-$CC -o $OUTPUT $FILES $LIB_DIR/libraylib.web.a $CFLAGS -I. -I $INCLUDE_DIR -L. -L $LIB_DIR $EMFLAGS
+$CC -o $OUTPUT $FILES $LIB_DIR/libraylib.web.a $CFLAGS -I. -I $INCLUDE_DIR -L. -L $LIB_DIR -s EXPORTED_FUNCTIONS='["_main", "_SetHighScore", "_GetHighScore"]' $EMFLAGS
