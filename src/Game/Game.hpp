@@ -39,6 +39,7 @@ public:
     int people_helped = 0;
 
     void Init();
+    void Reset();
     void SetUp(); // Sets up objects and entities
 
     void Update();

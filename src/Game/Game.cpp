@@ -201,6 +201,15 @@ void Game::Update()
     }
 }
 
+void Game::Reset()
+{
+    scene = GAME;
+    people_helped = 0;
+    timer = time_limit;
+    homeless_people.clear();
+    plr.position = Vector2 { (float)WIDTH / 2, (float)26 };
+}
+
 void Game::DrawUI()
 {
     #if defined(PLATFORM_WEB)
@@ -235,7 +244,7 @@ void Game::DrawUI()
 
         if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)(HEIGHT/2-80/2)-50, 150, 80}, "PLAY!"))
         {
-            scene = GAME;
+            Game::Reset();
         }
         if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)(HEIGHT/2-80/2)+50, 150, 80}, "HOW TO PLAY"))
         {
@@ -269,10 +278,7 @@ void Game::DrawUI()
 
         if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)100, 150, 80}, "PLAY AGAIN!"))
         {
-            scene = GAME;
-            people_helped = 0;
-            timer = time_limit;
-            homeless_people.clear();
+            Game::Reset();
         }
         if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)200, 150, 80}, "MENU"))
         {
