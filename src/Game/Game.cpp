@@ -227,9 +227,13 @@ void Game::DrawUI()
             DrawText(format_high_score.c_str(), WIDTH/2-highscore_width/2, 50, 20, BLACK);
         #endif
 
-        if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)HEIGHT/2-80/2, 150, 80}, "PLAY!"))
+        if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)(HEIGHT/2-80/2)-50, 150, 80}, "PLAY!"))
         {
             scene = GAME;
+        }
+        if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)(HEIGHT/2-80/2)+50, 150, 80}, "INFO ON HOMELESSNESS"))
+        {
+            scene = INFO;
         }
     }
     else if (scene == SCORE)
@@ -263,6 +267,43 @@ void Game::DrawUI()
         {
             scene = MENU;
         }
+    }
+    else if (scene == INFO)
+    {
+        DrawText(
+            "Homelessness is a global issue caused by poverty,",
+            WIDTH/2-MeasureText("Homelessness is a global issue caused by poverty,", 20)/2,
+            150, 20, BLACK
+        );
+        DrawText(
+            "lack of affordable housing, unemployment, and mental health struggles.",
+            WIDTH/2-MeasureText("lack of affordable housing, unemployment, and mental health struggles.", 20)/2,
+            180, 20, BLACK
+        );
+        DrawText(
+            "It leads to poor health, crime, and social instability.",
+            WIDTH/2-MeasureText("It leads to poor health, crime, and social instability.", 20)/2,
+            210, 20, BLACK
+        );
+        DrawText(
+            "Solutions include shelter programs, affordable housing,",
+            WIDTH/2-MeasureText("Solutions include shelter programs, affordable housing,", 20)/2,
+            240, 20, BLACK
+        );
+        DrawText(
+            "job training, and mental health support.",
+            WIDTH/2-MeasureText("job training, and mental health support.", 20)/2,
+            270, 20, BLACK
+        );
+
+        if (GuiButton(
+            Rectangle { (float)WIDTH/2-120/2, 350, 120, 45 },
+            "#185# Home"
+        ))
+        {
+            scene = MENU;
+        }
+
     }
 }
 

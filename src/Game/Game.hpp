@@ -17,7 +17,8 @@ enum SCENE
 {
     MENU,
     GAME,
-    SCORE
+    SCORE,
+    INFO
 };
 
 class Game
