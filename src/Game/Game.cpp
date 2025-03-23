@@ -220,12 +220,18 @@ void Game::DrawUI()
     }
     else if (scene == MENU)
     {
-        #if defined(PLATFORM_WEB)
-            std::string format_high_score = "High Score: " + std::to_string(GetHighScore());
-            float highscore_width = (float)MeasureText(format_high_score.c_str(), 20)+10;
-            DrawRectangleRounded({(WIDTH/2-highscore_width/2)-5, 50, highscore_width, 20}, 0.5f, 10.f, LIGHTGRAY);
-            DrawText(format_high_score.c_str(), WIDTH/2-highscore_width/2, 50, 20, BLACK);
-        #endif
+            std::string title = "Homeless Game";
+            DrawText(title.c_str(), WIDTH/2-MeasureText(title.c_str(), 20)/2, 20, 20, BLACK);
+            std::string credits = "Programming By Jesse & Art By Cy";
+            DrawText(credits.c_str(), WIDTH/2-MeasureText(credits.c_str(), 20)/2, 40, 20, BLACK);
+
+            #if defined(PLATFORM_WEB)
+                std::string format_high_score = "High Score: " + std::to_string(GetHighScore());
+                float highscore_width = (float)MeasureText(format_high_score.c_str(), 20)+10;
+                DrawRectangleRounded({(WIDTH/2-highscore_width/2)-5, 80, highscore_width, 20}, 0.5f, 10.f, LIGHTGRAY);
+                DrawText(format_high_score.c_str(), WIDTH/2-highscore_width/2, 80, 20, BLACK);
+            #endif
+
 
         if (GuiButton(Rectangle{(float)WIDTH/2-150/2, (float)(HEIGHT/2-80/2)-50, 150, 80}, "PLAY!"))
         {
