@@ -363,6 +363,43 @@ void Game::DrawUI()
             scene = MENU;
         }
     }
+    else if (scene == HOW)
+    {
+        DrawText("How to play", WIDTH/2-MeasureText("How to play", 40)/2, 50, 40, BLACK);
+        DrawText(
+            "To play the game you must go up to every homeless person you see,",
+            WIDTH/2-MeasureText("To play the game you must go up to every homeless person you see,", 20)/2,
+            150, 20, BLACK
+        );
+        DrawText(
+            "and donate money to him. To donate money you must go up close",
+            WIDTH/2-MeasureText("and donate money to him. To donate money you must go up close", 20)/2,
+            180, 20, BLACK
+        );
+        DrawText(
+            "to him and press the E key.",
+            WIDTH/2-MeasureText("to him and press the E key.", 20)/2,
+            210, 20, BLACK
+        );
+        DrawText(
+            "Try and donate to as many people as possible",
+            WIDTH/2-MeasureText("Try and donate to as many people as possible", 20)/2,
+            240, 20, BLACK
+        );
+        DrawText(
+            "before the 60 second timer runs out.",
+            WIDTH/2-MeasureText("before the 60 second timer runs out.", 20)/2,
+            270, 20, BLACK
+        );
+
+        if (GuiButton(
+            Rectangle{(float)WIDTH / 2 - 120 / 2, 300, 120, 45},
+            "#185# Home"
+        ))
+        {
+            scene = MENU;
+        }
+    }
 }
 
 void Game::Draw()
