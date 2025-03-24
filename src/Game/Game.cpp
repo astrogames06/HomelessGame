@@ -287,78 +287,81 @@ void Game::DrawUI()
     }
     else if (scene == INFO)
     {
-        DrawText("Homelessness Information", WIDTH/2-MeasureText("Homelessness Information", 40)/2, 50, 40, BLACK);
+        DrawText("Homelessness Information", WIDTH / 2 - MeasureText("Homelessness Information", 40) / 2, 20, 40, BLACK);
+
         DrawText(
-            "Homelessness is a global issue caused by poverty,",
-            WIDTH/2-MeasureText("Homelessness is a global issue caused by poverty,", 20)/2,
-            150, 20, BLACK
+            "Homelessness is a global problem affecting over 150 million people,",
+            WIDTH / 2 - MeasureText("Homelessness is a global problem affecting over 150 million people,", 20) / 2,
+            70, 20, BLACK
         );
+
         DrawText(
-            "lack of affordable housing, unemployment, and mental health struggles.",
-            WIDTH/2-MeasureText("lack of affordable housing, unemployment, and mental health struggles.", 20)/2,
-            180, 20, BLACK
+            "which is about 2% of the world's population.",
+            WIDTH / 2 - MeasureText("which is about 2% of the world's population.", 20) / 2,
+            100, 20, BLACK
         );
+
         DrawText(
-            "It leads to poor health, crime, and social instability.",
-            WIDTH/2-MeasureText("It leads to poor health, crime, and social instability.", 20)/2,
-            210, 20, BLACK
+            "The causes include job loss, domestic violence,",
+            WIDTH / 2 - MeasureText("The causes include job loss, domestic violence,", 20) / 2,
+            130, 20, BLACK
         );
+
         DrawText(
-            "Solutions include shelter programs, affordable housing,",
-            WIDTH/2-MeasureText("Solutions include shelter programs, affordable housing,", 20)/2,
-            240, 20, BLACK
+            "mental health issues, drug addiction, and lack of support.",
+            WIDTH / 2 - MeasureText("mental health issues, drug addiction, and lack of support.", 20) / 2,
+            160, 20, BLACK
         );
+
         DrawText(
-            "job training, and mental health support.",
-            WIDTH/2-MeasureText("job training, and mental health support.", 20)/2,
-            270, 20, BLACK
+            "Other factors include natural disasters, health problems,",
+            WIDTH / 2 - MeasureText("Other factors include natural disasters, health problems,", 20) / 2,
+            190, 20, BLACK
+        );
+
+        DrawText(
+            "lack of ID, and military service.",
+            WIDTH / 2 - MeasureText("lack of ID, and military service.", 20) / 2,
+            220, 20, BLACK
+        );
+
+        DrawText(
+            "A major cause is the lack of affordable housing.",
+            WIDTH / 2 - MeasureText("A major cause is the lack of affordable housing.", 20) / 2,
+            250, 20, BLACK
+        );
+
+        DrawText(
+            "Solutions include shelter programs, job training,",
+            WIDTH / 2 - MeasureText("Solutions include shelter programs, job training,", 20) / 2,
+            280, 20, BLACK
+        );
+
+        DrawText(
+            "mental health support, rehab, and donations.",
+            WIDTH / 2 - MeasureText("mental health support, rehab, and donations.", 20) / 2,
+            310, 20, BLACK
+        );
+
+        DrawText(
+            "This game focuses on helping the homeless by donating,",
+            WIDTH / 2 - MeasureText("This game focuses on helping the homeless by donating,", 20) / 2,
+            340, 20, BLACK
+        );
+
+        DrawText(
+            "providing clothes, securing ID, and ensuring access to food.",
+            WIDTH / 2 - MeasureText("providing clothes, securing ID, and ensuring access to food.", 20) / 2,
+            370, 20, BLACK
         );
 
         if (GuiButton(
-            Rectangle { (float)WIDTH/2-120/2, 350, 120, 45 },
+            Rectangle{(float)WIDTH / 2 - 120 / 2, 400, 120, 45},
             "#185# Home"
         ))
         {
             scene = MENU;
         }
-    }
-    else if (scene == HOW)
-    {
-        DrawText("How to play", WIDTH/2-MeasureText("How to play", 40)/2, 50, 40, BLACK);
-        DrawText(
-            "To play the game you must go up to every homeless person you see,",
-            WIDTH/2-MeasureText("To play the game you must go up to every homeless person you see,", 20)/2,
-            150, 20, BLACK
-        );
-        DrawText(
-            "and donate money to him. To donate money you must go up close",
-            WIDTH/2-MeasureText("and donate money to him. To donate money you must go up close", 20)/2,
-            180, 20, BLACK
-        );
-        DrawText(
-            "to him and press the E key.",
-            WIDTH/2-MeasureText("to him and press the E key.", 20)/2,
-            210, 20, BLACK
-        );
-        DrawText(
-            "Try and donate to as many people as possible",
-            WIDTH/2-MeasureText("Try and donate to as many people as possible", 20)/2,
-            240, 20, BLACK
-        );
-        DrawText(
-            "before the 60 second timer runs out.",
-            WIDTH/2-MeasureText("before the 60 second timer runs out.", 20)/2,
-            270, 20, BLACK
-        );
-
-        if (GuiButton(
-            Rectangle { (float)WIDTH/2-120/2, 350, 120, 45 },
-            "#185# Home"
-        ))
-        {
-            scene = MENU;
-        }
-
     }
 }
 
